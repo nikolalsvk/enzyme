@@ -11,7 +11,8 @@
     "clean": "rimraf build",
     "lint": "eslint --ext js,jsx src test",
     "check": "npm run lint && npm run test:all",
-    "build": "babel src --out-dir build",
+    "build": "babel src --out-dir build && npm run build-global",
+    "build-global": "browserify -e build/index.js -s enzyme -x react/addons -x react/lib/ReactContext -x react/lib/ExecutionEnvironment -o build/global.js",
     "pretest": "npm run lint",
     "test": "npm run clean && npm run build && npm run test:only",
     "test:only": "mocha --recursive test",
@@ -53,6 +54,7 @@
   "author": "Leland Richardson <leland.richardson@airbnb.com>",
   "license": "MIT",
   "dependencies": {
+    "browserify": "^14.3.0",
     "cheerio": "^0.22.0",
     "function.prototype.name": "^1.0.0",
     "is-subset": "^0.1.1",
