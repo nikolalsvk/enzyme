@@ -12,7 +12,7 @@
     "lint": "eslint --ext js,jsx src test",
     "check": "npm run lint && npm run test:all",
     "build": "babel src --out-dir build && npm run build-global",
-    "build-global": "browserify -e build/index.js -s enzyme -x react/addons -x react/lib/ReactContext -x react/lib/ExecutionEnvironment -o build/global.js",
+    "build-global": "browserify build/index.js --external 'react/addons' --external 'react/lib/ExecutionEnvironment' --external 'react/lib/ReactContext' --standalone enzyme -t [ babelify --presets [ es2015 react ] ] -o enzyme.js",
     "pretest": "npm run lint",
     "test": "npm run clean && npm run build && npm run test:only",
     "test:only": "mocha --recursive test",
