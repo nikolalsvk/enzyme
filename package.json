@@ -11,7 +11,8 @@
     "clean": "rimraf build",
     "lint": "eslint --ext js,jsx src test",
     "check": "npm run lint && npm run test:all",
-    "build": "babel src --out-dir build",
+    "build": "babel src --out-dir build && npm run build-global",
+    "build-global": "browserify build/index.js -x react/addons -x react/lib/ExecutionEnvironment -x react/lib/ReactContext --standalone enzyme -t [ babelify --presets [ es2015 react ] ] -o enzyme.js",
     "pretest": "npm run lint",
     "test": "npm run clean && npm run build && npm run test:only",
     "test:only": "mocha --recursive test",
@@ -53,6 +54,8 @@
   "author": "Leland Richardson <leland.richardson@airbnb.com>",
   "license": "MIT",
   "dependencies": {
+    "babelify": "^7.3.0",
+    "browserify": "^14.3.0",
     "cheerio": "^0.22.0",
     "function.prototype.name": "^1.0.0",
     "is-subset": "^0.1.1",
@@ -62,6 +65,9 @@
     "object.entries": "^1.0.3",
     "object.values": "^1.0.3",
     "prop-types": "^15.5.4",
+    "react": "^15.5.4",
+    "react-test-renderer": "^15.5.4",
+    "sinon": "^1.17.7",
     "uuid": "^2.0.3"
   },
   "devDependencies": {
